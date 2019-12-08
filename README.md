@@ -1,6 +1,7 @@
 # LING131-Final-Project
 Repository for the LING131 Group Final Project
-1. Upload the ebooks as text files to the github account
+1. Upload the ebooks as text files to the github account - DONE
+	1. Break up the Sherlock Holmes text file into individual stories?
 2. Do magic
 	1. wordnet - get words to look for
 	2. find sentences with those words - take the context?
