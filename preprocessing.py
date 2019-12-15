@@ -2,6 +2,7 @@ import nltk
 from nltk.stem import PorterStemmer
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import wordnet
+import operator
 
 def stem_sentences(text):
     ps = PorterStemmer()
@@ -40,8 +41,6 @@ def lemma_sentences(text):
                 stems.append(lemmatizer.lemmatize(word.lower(), 'n'))
             elif(pos[0] == 'V'):
                 stems.append(lemmatizer.lemmatize(word.lower(), 'v'))
-            elif(pos[0] == 'R'):
-                stems.append(lemmatizer.lemmatize(word.lower(), 'r'))
             elif(pos == 'MD'):
                 #WordNet doesn't have modals, but we want to know when they're in a sentence
                 stems.append(word)
@@ -55,8 +54,50 @@ def murder_words(text):
     #die and dying both included because of v/a behavior of lemmatizer
     return ['murder','kill','die','dying','poison', 'murderer']
 
+
+#still probably want to lemma or stem these
+#attempting to do murder_words more cleverly
+def improved_murder_words(text):
+    noun = wordnet.synsets('murder','n')[0]
+    verb = wordnet.synsets('murder','v')[0]
+    adj = wordnet.synsets('dying','a')[0]
     
-#might have issues if kill words in title, elsewise gutenburg extra at start and end should mean this is safe
+    tagged_unique_words = set(nltk.pos_tag(nltk.word_tokenize(text)))
+    words = []
+    for (word, pos) in tagged_unique_words:
+        min_num = 100
+        if(pos[0] == 'J'):
+            synset = wordnet.synsets(word,'a')
+            for meaning in synset:
+                num = adj.shortest_path_distance(meaning)
+                if(num != None):
+                    min_num = min(min_num, num)
+        elif((pos == 'NN') or (pos == 'NNS')):
+            synset = wordnet.synsets(word,'n')
+            for meaning in synset:
+                num = noun.shortest_path_distance(meaning)
+                if(num != None):
+                    min_num = min(min_num, num)
+        elif(pos[0] == 'V'):
+            synset = wordnet.synsets(word,'v')
+            for meaning in synset:
+                num = verb.shortest_path_distance(meaning)
+                if(num != None):
+                    min_num = min(min_num, num)
+        words.append((word.lower(), min_num))
+    
+    words = sorted(words, key = operator.itemgetter(1))
+    
+    #keeps any words with a distance of 3 or less from the targets
+    murder_words = []
+    for (word, num) in words:
+        if num < 4:
+            murder_words.append(word)
+    
+    return murder_words
+
+    
+#wraps around end of file if finds murder word at start or end
 #makes a list where each entry has the relevant murder word, the two sentences before it, the sentence with it, and the two sentences after it   
 def murder_sents(sent_words, sentences, death_words):
 
