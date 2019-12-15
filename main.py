@@ -14,13 +14,13 @@ if __name__ == '__main__':
     # open supplied file and get contents
     if os.path.isfile(input):
         file = open(input, 'rb')
-        text = file.read()
+        text = (file.read()).decode()
         file.close()
     else:
         print("Invalid file.")
         quit()
     
-    #two options, get 114 sentences with stemming, 94 with lemmatizing
+    #two options, get 122 sentences with stemming, 113 with lemmatizing
     #sent_words, sentences = preprocessing.stem_sentences(text)
     sent_words, sentences = preprocessing.lemma_sentences(text)
 

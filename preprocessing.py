@@ -15,7 +15,7 @@ def stem_sentences(text):
         unique_words = set(nltk.word_tokenize(sent))
         stems = []
         for word in unique_words:
-            stems.append(ps.stem(word))
+            stems.append(ps.stem(word.lower()))
         sent_words.append(stems)
         
     return sent_words, sentences
@@ -25,7 +25,7 @@ def lemma_sentences(text):
     lemmatizer = WordNetLemmatizer()
     
     #list of each sentence in the text
-    sentences = nltk.sent_tokenize(str(text))
+    sentences = nltk.sent_tokenize(text)
 
     #makes a list of lists.  each entry has the the lemmas of all unique adjectives, nouns, verbs, and adverbs in the sentence.
     sent_words = []
@@ -35,13 +35,16 @@ def lemma_sentences(text):
         stems = []
         for (word, pos) in unique_words:
             if(pos[0] == 'J'):
-                stems.append(lemmatizer.lemmatize(word, 'a'))
+                stems.append(lemmatizer.lemmatize(word.lower(), 'a'))
             elif(pos[0] == 'N'):
-                stems.append(lemmatizer.lemmatize(word, 'n'))
+                stems.append(lemmatizer.lemmatize(word.lower(), 'n'))
             elif(pos[0] == 'V'):
-                stems.append(lemmatizer.lemmatize(word, 'v'))
+                stems.append(lemmatizer.lemmatize(word.lower(), 'v'))
             elif(pos[0] == 'R'):
-                stems.append(lemmatizer.lemmatize(word, 'r'))
+                stems.append(lemmatizer.lemmatize(word.lower(), 'r'))
+            elif(pos == 'MD'):
+                #WordNet doesn't have modals, but we want to know when they're in a sentence
+                stems.append(word)
         sent_words.append(stems)
 
     return sent_words, sentences
@@ -50,7 +53,7 @@ def lemma_sentences(text):
 #a list of common death words.  will attempt to do this more cleverly later.    
 def murder_words(text):
     #die and dying both included because of v/a behavior of lemmatizer
-    return ['murder','kill','die','dying','poison']
+    return ['murder','kill','die','dying','poison', 'murderer']
 
     
 #might have issues if kill words in title, elsewise gutenburg extra at start and end should mean this is safe
@@ -67,6 +70,7 @@ def murder_sents(sent_words, sentences, death_words):
             if (word in death_words) and (word not in hypotheticals):
                 #this works because sent_words and sentences have the same sentence indexes
                 murdery_sentences.append((word, sentences[i-2], sentences[i-1], sentences[i], sentences[i+1], sentences[i+2]))
+                continue
         i += 1
         
     return murdery_sentences
