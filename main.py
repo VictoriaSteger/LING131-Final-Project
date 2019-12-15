@@ -10,15 +10,18 @@ import preprocessing
 if __name__ == '__main__':
     #input = input("What file should I use?")
     input = "./The Mysterious Affair at Styles - Agatha Christie.txt"
+    #input = "./test.txt"
 
     # open supplied file and get contents
     if os.path.isfile(input):
-        file = open(input, 'rb')
-        text = (file.read()).decode()
+        file = open(input, 'r')
+        text = file.read()
         file.close()
     else:
         print("Invalid file.")
         quit()
+    
+    
     
     #two options, get 122 sentences with stemming, 113 with lemmatizing
     #sent_words, sentences = preprocessing.stem_sentences(text)
@@ -30,8 +33,8 @@ if __name__ == '__main__':
     #get a list of sentences and context for death/murder words
     murdery_sents = preprocessing.murder_sents(sent_words, sentences, death_words)
     
-    print(len(murdery_sents))
-    print(murdery_sents[0])
+    #print(len(murdery_sents))
+    print(murdery_sents[1])
 
     
     
