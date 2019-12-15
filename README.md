@@ -11,4 +11,7 @@ Repository for the LING131 Group Final Project
 	3. Review the results
 		1. resolve any issues with pronouns - the most recent named entity?
 	4. Create a test file
-3. Profit
+3. Install spacy (pip install spacy) 
+    and en_core_web_sm (pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.2.0/en_core_web_sm-2.2.0.tar.gz)
+
+4. Profit
