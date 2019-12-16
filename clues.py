@@ -2,6 +2,7 @@
 I uploaded it as ner2
 '''
 import ner2
+from nltk.tokenize import RegexpTokenizer
 
 def clues(murdery_sents):
     
@@ -15,9 +16,13 @@ def clues(murdery_sents):
     
     new_murder = []
     
+    tokenizer = RegexpTokenizer(r'\w+')
+    
     for i in new_people:
         for j in murdery_sents:
-            k = j[1].split()
+            k = tokenizer.tokenize(j[1])
             if i in k:
-                new_murder.append(j[1])
-    return new_murder
+                new_murder.append(j)
+            elif "Mr." in k or "Mrs." in k:
+                new_murder.append(j)
+    return list(set(new_murder))

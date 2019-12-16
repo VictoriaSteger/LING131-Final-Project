@@ -25,7 +25,7 @@ if __name__ == '__main__':
             
     
     #two options, get 122 sentences with stemming, 113 with lemmatizing
-    #sent_words, sentences = preprocessing.stem_sentences(text)
+    # sent_words, sentences = preprocessing.stem_sentences(text)
     sent_words, sentences = preprocessing.lemma_sentences(text)
 
     #get a list of words from the text related to death/murder
@@ -34,5 +34,11 @@ if __name__ == '__main__':
     #get a list of sentences and context for death/murder words
     murdery_sents = preprocessing.murder_sents(sent_words, sentences, death_words)
     
+    '''for i in murdery_sents:
+        if "murderer" in i:
+            print(i)'''
+    
     #print(len(murdery_sents))
-    print(clues.clues(murdery_sents))
+    x = clues.clues(murdery_sents)
+    for i in x:
+        print(i)
