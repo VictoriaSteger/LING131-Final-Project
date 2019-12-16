@@ -1,6 +1,8 @@
 import os
 import time                           #only using this for testing purposes, can remove when submitting
 import preprocessing
+import nltk
+import clues
 
 #DOES SOMEONE HAVE A BETTER WAY TO READ THIS FILE?  ONE WITHOUT ALL THE SLASHES?
 
@@ -20,8 +22,7 @@ if __name__ == '__main__':
     else:
         print("Invalid file.")
         quit()
-    
-    
+            
     
     #two options, get 122 sentences with stemming, 113 with lemmatizing
     #sent_words, sentences = preprocessing.stem_sentences(text)
@@ -34,7 +35,4 @@ if __name__ == '__main__':
     murdery_sents = preprocessing.murder_sents(sent_words, sentences, death_words)
     
     #print(len(murdery_sents))
-    print(murdery_sents[1])
-
-    
-    
+    print(clues.clues(murdery_sents))
