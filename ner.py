@@ -1,6 +1,7 @@
 import spacy
 import preprocessing
 from nltk.probability import FreqDist
+from nltk.tokenize import word_tokenize
 
 nlp = spacy.load('en_core_web_sm')
 
@@ -20,7 +21,13 @@ for tup in murdery_sents:
         doc = nlp(tup[i])
         for ent in doc.ents:
             if ent.label_ == "PERSON":
-                ents.append(ent.text)
+                to_append = ent.text
+                if ent.start_char > 3 and tup[i][(ent.start_char-4):(ent.start_char)] == "Mr. ":
+                    to_append = "Mr. " + to_append
+                elif ent.start_char > 4 and tup[i][(ent.start_char-5):(ent.start_char)] == "Mrs. ":
+                    to_append = "Mrs. " + to_append
+
+                ents.append(to_append)
 
 counts = FreqDist(ents)
 print(counts.most_common())
