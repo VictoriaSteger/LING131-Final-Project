@@ -10,7 +10,7 @@ import ner2
 
 if __name__ == '__main__':
     #input = input("What file should I use?")
-    input = "./The Secret Adversary - Agatha Christie.txt"
+    input = "./The Mysterious Affair at Styles - Agatha Christie.txt"
 
     # open supplied file and get contents
     if os.path.isfile(input):
@@ -37,4 +37,11 @@ if __name__ == '__main__':
     
     people = ner2.listofPeople(murdery_sents)
     
-    them_roles.murder_aggregate(sentences, death_words, people)
+    new_people = []
+    
+    for i in people:
+        if str(i) not in new_people:
+            new_people.append(str(i))
+    
+    
+    them_roles.murder_aggregate(sentences, death_words, new_people)
