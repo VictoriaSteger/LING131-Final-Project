@@ -2,13 +2,15 @@ import os
 import preprocessing
 import nltk
 import clues
+import them_roles
+import ner2
 
 #killer: Culverton Smith
 #dead person: Victor Savage
 
 if __name__ == '__main__':
     #input = input("What file should I use?")
-    input = "./The Adventure of the Dying Detective.txt"
+    input = "./The Secret Adversary - Agatha Christie.txt"
 
     # open supplied file and get contents
     if os.path.isfile(input):
@@ -28,6 +30,11 @@ if __name__ == '__main__':
     # get a list of sentences and context for death/murder words
     murdery_sents = preprocessing.murder_sents(sent_words, sentences, death_words)
 
+    #not currently used by Mike's method
     x = clues.clues(murdery_sents)
-    for i in x:
-        print(i)
+    #for i in x:
+    #    print(i)
+    
+    people = ner2.listofPeople(murdery_sents)
+    
+    them_roles.murder_aggregate(sentences, death_words, people)
