@@ -20,7 +20,7 @@ ACTUAL TEXT ONCE WE'RE READY TO DELETE THE ABOVE:
 
 For this project, we attempted to create a murder mystery spoilor generator, wherein you can input a murder mystery in the form of a .txt file and the program would return who the murderer is.
 
-Packages needed for this project:
+1. Packages needed for this project:
 	1. nltk
 	2. Spacey
 	3. ?
