@@ -2,62 +2,59 @@ import random
 
 def testing(file, accused):
     
-    if file == "The Adventure of Black Peter.txt":
+    if file == "./The Adventure of Black Peter.txt":
         killer = ""
-    elif file == "The Adventure of Black Peter.txt":
-        pass
-    elif file == "The Adventure of the Abbey Grange.txt":
-        pass
-    elif file == "The Adventure of the Bruce-Partington Plans.txt":
-        pass
-    elif file == "The Adventure of the Cardboard Box.txt":
-        pass
-    elif file == "The Adventure of the Crooked Man.txt":
-        pass
-    elif file == "The Adventure of the Dancing Men.txt":
-        pass
-    elif file == "The Adventure of the Devil's Foot.txt":
-        pass
-    elif file == "The Adventure of the Dying Detective.txt":
-        pass
-    elif file == "The Adventure of the Empty House.txt":
-        pass
-    elif file == "The Adventure of the Golden Pince-Nez.txt":
-        pass
-    elif file == "The Adventure of the Greek Interpreter - Question.txt":
-        pass
-    elif file == "The Adventure of the Norwood Builder.txt":
-        pass
-    elif file == "The Adventure of the Reigate Squire.txt":
-        pass
-    elif file == "The Adventure of the Resident Patient.txt":
-        pass
-    elif file == "The Adventure of the Silver Blaze.txt":
-        pass
-    elif file == "The Adventure of the Speckled Band.txt":
-        pass
-    elif file == "The Adventure of Wisteria Lodge.txt":
-        pass
-    elif file == "The Boscombe Valley Mystery.txt":
-        pass
-    elif file == "The Five Orange Pips.txt":
-        pass
-    elif file == "The Murder on the Links - Agatha Christie.txt":
-        pass
-    elif file == "The Musgrave Ritual - Question.txt":
-        pass
-    elif file == "The Mysterious Affair at Styles - Agatha Christie.txt":
-        pass
-    elif file == "The Secret Adversary - Agatha Christie.txt":
-        pass
-    elif file == "The Sign of the Four.txt":
-        pass
-    elif file == "The Valley of Fear.txt":
-        pass
+    elif file == "./The Adventure of Black Peter.txt":
+        killer = ""
+    elif file == "./The Adventure of the Abbey Grange.txt":
+        killer = ""
+    elif file == "./The Adventure of the Bruce-Partington Plans.txt":
+        killer = ""
+    elif file == "./The Adventure of the Cardboard Box.txt":
+        killer = ""
+    elif file == "./The Adventure of the Crooked Man.txt":
+        killer = ""
+    elif file == "./The Adventure of the Dancing Men.txt":
+        killer = ""
+    elif file == "./The Adventure of the Dying Detective.txt":
+        killer = "Culverton Smith"
+    elif file == "./The Adventure of the Empty House.txt":
+        killer = ""
+    elif file == "./The Adventure of the Golden Pince-Nez.txt":
+        killer = ""
+    elif file == "./The Adventure of the Norwood Builder.txt":
+        killer = ""
+    elif file == "./The Adventure of the Reigate Squire.txt":
+        killer = ""
+    elif file == "./The Adventure of the Resident Patient.txt":
+        killer = ""
+    elif file == "./The Adventure of the Silver Blaze.txt":
+        killer = ""
+    elif file == "./The Adventure of the Speckled Band.txt":
+        killer = ""
+    elif file == "./The Adventure of Wisteria Lodge.txt":
+        killer = ""
+    elif file == "./The Boscombe Valley Mystery.txt":
+        killer = ""
+    elif file == "./The Five Orange Pips.txt":
+        killer = ""
+    elif file == "./The Murder on the Links - Agatha Christie.txt":
+        killer = ""
+    elif file == "./The Musgrave Ritual - Question.txt":
+        killer = ""
+    elif file == "./The Mysterious Affair at Styles - Agatha Christie.txt":
+        killer = ""
+    elif file == "./The Secret Adversary - Agatha Christie.txt":
+        killer = ""
+    elif file == "./The Sign of the Four.txt":
+        killer = ""
+    elif file == "./The Valley of Fear.txt":
+        killer = ""
     else:
         print("File is not valid - you are the killer :)")
     
-    if killer == accused:
+    murderer = accused.split()
+    if killer == accused or killer == murderer[0] or killer == murderer[1]:
         truth = 1
     else:
         truth = 0
