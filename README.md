@@ -21,8 +21,8 @@ ACTUAL TEXT ONCE WE'RE READY TO DELETE THE ABOVE:
 For this project, we attempted to create a murder mystery spoilor generator, wherein you can input a murder mystery in the form of a .txt file and the program would return who the murderer is.
 
 Packages needed for this project:
-	nltk
-	Spacey
-	?
+	1. nltk
+	2. Spacey
+	3. ?
 
 In order to run this code, simply run "main.py". You will them be prompted to enter a file name - we have provided several text files for that purpose in the repository. The program will then return who it thinks the killer is, as well as how accurate it would be if it were randomly guessing the killer, rather than using our program. You will then be prompted if you want to check a second file. Once you are done checking all of the files you want, the program will then tell you how accurate the program was overall.
