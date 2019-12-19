@@ -2,15 +2,14 @@ import os
 import preprocessing
 import nltk
 import clues
-import them_roles
-import ner2
+import alternate
 
 #killer: Culverton Smith
 #dead person: Victor Savage
 
 if __name__ == '__main__':
     #input = input("What file should I use?")
-    input = "./The Mysterious Affair at Styles - Agatha Christie.txt"
+    input = "./The Adventure of the Dying Detective.txt"
 
     # open supplied file and get contents
     if os.path.isfile(input):
@@ -30,18 +29,32 @@ if __name__ == '__main__':
     # get a list of sentences and context for death/murder words
     murdery_sents = preprocessing.murder_sents(sent_words, sentences, death_words)
 
-    #not currently used by Mike's method
-    x = clues.clues(murdery_sents)
-    #for i in x:
-    #    print(i)
+    '''x = clues.clues(murdery_sents)
+    for i in x:
+        print(i)
+        
+    z = alternate.accusations(murdery_sents, text)
+    print(z)
+    y = alternate.known_victim(murdery_sents, text, "Victor Savage")
+    print(y)'''
     
-    people = ner2.listofPeople(murdery_sents)
+    a = alternate.murder_she_wrote(murdery_sents, text)
+    print(a)
     
-    new_people = []
+'''look for accusations, and give more weight to ones done by the detective?
+create test files to check if we recieve the correct killer
+See if we can get better than random chance
+Write-up: what we looked at, the differences between the two, the accuracy rate
+for each author, show the results of the tests
+Write about the heuristics
+Clean up readme
+
+To Do:
+    Write up bullshit methods
+    ? - one that filters if the detective said something
+    ? - one that only contains "murder" or "murderer" in it
     
-    for i in people:
-        if str(i) not in new_people:
-            new_people.append(str(i))
+    Edit the google doc
     
-    
-    them_roles.murder_aggregate(sentences, death_words, new_people)
+    Write the google doc for CompSemantics
+'''
