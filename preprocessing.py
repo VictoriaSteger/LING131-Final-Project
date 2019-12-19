@@ -107,16 +107,26 @@ def improved_murder_words(text):
 
 
 # makes list of the relevant murder word, the sentence with it, and two sentences before and after
-# wraps around end of file if finds murder word at start or end
+# wraps around end of file if finds murder word at start, uses 'Filler' sentence if at end
 def murder_sents(sent_words, sentences, death_words):
     murdery_sentences = []
     i = 0
     while i < len(sent_words):
         for word in sent_words[i]:
-            if (word in death_words):
+            if (word in death_words) and ((i+2) < len(sentences)):
                 # this works because sent_words and sentences have the same sentence indexes
                 murdery_sentences.append((word, sentences[i-2], sentences[i-1],
                                           sentences[i], sentences[i+1], sentences[i+2]))
+                continue
+            elif (word in death_words) and ((i+1) < len(sentences)):
+                # this works because sent_words and sentences have the same sentence indexes
+                murdery_sentences.append((word, sentences[i-2], sentences[i-1],
+                                          sentences[i], sentences[i+1], 'Filler.'))
+                continue
+            elif (word in death_words) and ((i) < len(sentences)):
+                # this works because sent_words and sentences have the same sentence indexes
+                murdery_sentences.append((word, sentences[i-2], sentences[i-1],
+                                          sentences[i], 'Filler', 'Filler.'))
                 continue
         i += 1
 
