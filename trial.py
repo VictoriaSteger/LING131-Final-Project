@@ -1,65 +1,43 @@
 import random
+import preprocessing
+import clues
+import them_roles
+import ner2
 
-def testing(file, accused):
-    
-    if file == "./The Adventure of Black Peter.txt":
-        killer = ""
-    elif file == "./The Adventure of Black Peter.txt":
-        killer = ""
-    elif file == "./The Adventure of the Abbey Grange.txt":
-        killer = ""
-    elif file == "./The Adventure of the Bruce-Partington Plans.txt":
-        killer = ""
-    elif file == "./The Adventure of the Cardboard Box.txt":
-        killer = ""
-    elif file == "./The Adventure of the Crooked Man.txt":
-        killer = ""
-    elif file == "./The Adventure of the Dancing Men.txt":
-        killer = ""
-    elif file == "./The Adventure of the Dying Detective.txt":
-        killer = "Culverton Smith"
-    elif file == "./The Adventure of the Empty House.txt":
-        killer = ""
-    elif file == "./The Adventure of the Golden Pince-Nez.txt":
-        killer = ""
-    elif file == "./The Adventure of the Norwood Builder.txt":
-        killer = ""
-    elif file == "./The Adventure of the Reigate Squire.txt":
-        killer = ""
-    elif file == "./The Adventure of the Resident Patient.txt":
-        killer = ""
-    elif file == "./The Adventure of the Silver Blaze.txt":
-        killer = ""
-    elif file == "./The Adventure of the Speckled Band.txt":
-        killer = ""
-    elif file == "./The Adventure of Wisteria Lodge.txt":
-        killer = ""
-    elif file == "./The Boscombe Valley Mystery.txt":
-        killer = ""
-    elif file == "./The Five Orange Pips.txt":
-        killer = ""
-    elif file == "./The Murder on the Links - Agatha Christie.txt":
-        killer = ""
-    elif file == "./The Musgrave Ritual - Question.txt":
-        killer = ""
-    elif file == "./The Mysterious Affair at Styles - Agatha Christie.txt":
-        killer = ""
-    elif file == "./The Secret Adversary - Agatha Christie.txt":
-        killer = ""
-    elif file == "./The Sign of the Four.txt":
-        killer = ""
-    elif file == "./The Valley of Fear.txt":
-        killer = ""
-    else:
-        print("File is not valid - you are the killer :)")
-    
-    murderer = accused.split()
-    if killer == accused or killer == murderer[0] or killer == murderer[1]:
-        truth = 1
-    else:
-        truth = 0
-    return truth
-    
+def testing():
+    with open("answers-story,killer,victim.txt") as file:
+        for line in file:
+            f, s, t = line.split(",")
+
+            print("doing", f)
+
+            name = f + ".txt"
+
+            sent_words, sentences = preprocessing.lemma_sentences(name)
+
+            # get a list of words from the text related to death/murder
+            death_words = preprocessing.improved_murder_words(name)
+
+            # get a list of sentences and context for death/murder words
+            murdery_sents = preprocessing.murder_sents(sent_words, sentences, death_words)
+
+            # not currently used by Mike's method
+            cl = clues.clues(murdery_sents)
+            people = ner2.listofPeople(murdery_sents)
+
+            new_people = []
+            for i in people:
+                if str(i) not in new_people:
+                    new_people.append(str(i).lower())
+
+            kill, vic = them_roles.murder_aggregate(cl, death_words, new_people)
+
+            print("Story:", f)
+            print("\tReal killer:", s)
+            print("\tPredicted killer:", kill)
+            print("\tReal victim:", t)
+            print("\tPredicted victim:", vic)
+
 def bad_detective(people):
     rand = random.randint(0,(len(people)))
     definitely_the_killer = people[rand]
@@ -76,3 +54,10 @@ def red_herring_sucess_rate(killer, people):
 
 def actual_success_rate(outcomes, num_tested):
     return outcomes/num_tested
+
+
+def formula():
+    pass
+
+if __name__ == "__main__":
+    testing()

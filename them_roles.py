@@ -67,7 +67,7 @@ def most_frequent(List):
 
 def murder_aggregate(text, m_words, entities):
     global main_char
-    print("-----------------------SPOILERS--------------------------")
+    # print("-----------------------SPOILERS--------------------------")
     suspicious_events = list()
     murderers = list()
     victims = list()
@@ -84,12 +84,12 @@ def murder_aggregate(text, m_words, entities):
             murderers.append(tmp[0])
             victims.append(tmp[1])
 
-    print("SUSPECTS:", murderers)
-    print("POTENTIAL VICTIMS:", victims)
+    # print("SUSPECTS:", murderers)
+    # print("POTENTIAL VICTIMS:", victims)
     mfm =most_frequent(murderers)
     mfv =most_frequent(victims)
-    print("MOST LIKELY KILLER:", mfm)
-    print("MOST LIKELY VICTIM:", mfv)
+    # print("MOST LIKELY KILLER:", mfm)
+    # print("MOST LIKELY VICTIM:", mfv)
     return (mfm,mfv)
 
 def processing():
