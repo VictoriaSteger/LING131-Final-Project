@@ -4,6 +4,7 @@ import clues
 import them_roles
 import ner2
 
+
 def testing():
     tested = 0
     kill_acc = 0
@@ -47,6 +48,7 @@ def testing():
             kill, vic = them_roles.murder_aggregate(cl, death_words, new_people)
             rkill, rvic = random.sample(new_people, 2)
 
+            print()
             print("Story:", f)
             print("\tReal killer:", s)
             print("\tPredicted killer:", kill)
@@ -69,5 +71,7 @@ def testing():
     print("Victim prediction accuracy:", vic_acc / tested)
     print("\tRandom chance accuracy:", rand_vic_acc / tested)
 
+
 if __name__ == "__main__":
     testing()
+    

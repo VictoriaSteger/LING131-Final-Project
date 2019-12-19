@@ -1,8 +1,7 @@
 import spacy
-import preprocessing
-from nltk.probability import FreqDist
 
 nlp = spacy.load('en_core_web_sm')
+
 
 def listofPeople(murdery_sents):
     ents = []
