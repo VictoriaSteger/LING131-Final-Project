@@ -8,11 +8,16 @@ deniery = {"n't", "not", "would", "should", "could"}
 main_char = ''
 
 
+# returns the commonest element of a list
 def most_frequent(List):
     occurence_count = Counter(List)
     return occurence_count.most_common(1)[0][0]
 
 
+# Takes from a text, a target murdery word, and a list of entities
+# prints accesses them_rip for each sentence context
+# returns an analysis of murderers and victims in the text.
+# based on semantic roles found by sentence decomp
 def murder_aggregate(text, m_words, entities):
     global main_char
     suspicious_events = list()
@@ -20,7 +25,7 @@ def murder_aggregate(text, m_words, entities):
     victims = list()
     half = math.floor(len(text) / (3/4))
     # main_char = most_frequent(entities)
-    print(main_char)
+    # print(main_char)
     for wd, pre1, pre2, s, post1, post2 in text:
         targets = set()
         context = (pre1+" "+pre2+" "+s+" "+post1+" "+post2).lower()
@@ -31,8 +36,8 @@ def murder_aggregate(text, m_words, entities):
             murderers.append(tmp[0])
             victims.append(tmp[1])
 
-    print("SUSPECTS:", murderers)
-    print("POTENTIAL VICTIMS:", victims)
+    print("SUSPECTS: ", set(murderers))
+    print("POTENTIAL VICTIMS: ", set(victims))
     mfm = most_frequent(murderers)
     mfv = most_frequent(victims)
     print("MOST LIKELY KILLER:", mfm)
@@ -44,6 +49,9 @@ def processing():
     pass
 
 
+# semantic decomposition of a text finding named entities
+# utilizing pronoun anaphora and linguistic intuition
+# sentential position of agent and theme predicted
 def them_rip(sent, m, entities):
     global main_char
     targets = set()
@@ -53,6 +61,7 @@ def them_rip(sent, m, entities):
     PROa = False
     PROt = False
 
+    # lemmatizes words to match the lemmatized murdery word
     def minifunc(w):
         a = lemmatizer.lemmatize(w, 'v') == m
         b = lemmatizer.lemmatize(w, 'n') == m
@@ -68,6 +77,8 @@ def them_rip(sent, m, entities):
         agent = ''
         theme = ''
 
+        # avoiding so and so said interstitial bigrams
+        # checks entities for a word and caps a minimal word length
         def bool_check(w, t, b):
             interstitials = {(w, "said"), ("said", w)}
             for i in interstitials:
@@ -85,7 +96,7 @@ def them_rip(sent, m, entities):
             pass
     return tuples
 
-
+'''
 ex_actors = ['john', 'thomas', 'larry', 'moe', 'curly', 'sam', 'jill',
              'jamal', 'jackson', 'janet', 'latoya']
 ex_verbs = ['kill', 'poison', 'stab', 'break', 'murder', 'destroy']
@@ -100,6 +111,7 @@ s8 = "I stabbed him"
 s9 = "There's no way Thomas would kill Janet, he broke her heart, but Thomas would not kill Janet"
 s10 = "Thomas didn't kill Larry, Moe killed larry"
 tex = [s1, s2, s3, s4, s5, s6, s7, s8, s9, s10]
-'''
+
 j = murder_aggregate(tex, ex_verbs,ex_actors)
-print(j)'''
+print(j)
+'''
