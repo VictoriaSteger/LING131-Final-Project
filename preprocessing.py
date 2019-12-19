@@ -62,7 +62,7 @@ def murder_words(text):
 def improved_murder_words(text):
     noun = wordnet.synsets('murder', 'n')[0]
     verb = wordnet.synsets('murder', 'v')[0]
-    adj = wordnet.synsets('dying', 'a')[0]
+    adj = wordnet.synsets('fatal', 'a')[0]
 
     lemmatizer = WordNetLemmatizer()
 
