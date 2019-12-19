@@ -25,4 +25,5 @@ def clues(murdery_sents):
                 new_murder.append(j)
             elif "Mr." in k or "Mrs." in k:
                 new_murder.append(j)
-    return list(set(new_murder))
+
+    return list(new_murder)
