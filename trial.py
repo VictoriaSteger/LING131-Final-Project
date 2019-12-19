@@ -9,6 +9,9 @@ def testing():
     kill_acc = 0
     vic_acc = 0
 
+    rand_kill_acc = 0
+    rand_vic_acc = 0
+
     with open("answers-story,killer,victim.txt") as file:
         for line in file:
             tested += 1
@@ -42,6 +45,7 @@ def testing():
 
             # attempt to predict the murderer and victim
             kill, vic = them_roles.murder_aggregate(cl, death_words, new_people)
+            rkill, rvic = random.sample(new_people, 2)
 
             print("Story:", f)
             print("\tReal killer:", s)
@@ -54,9 +58,16 @@ def testing():
             if t in vic or vic in t:
                 vic_acc += 1
 
+            if rkill in kill or kill in rkill:
+                rand_kill_acc += 1
+            if rvic in vic or vic in rvic:
+                rand_vic_acc += 1
+
     print()
     print("Killer prediction accuracy:", kill_acc/tested)
+    print("\tRandom chance accuracy:", rand_kill_acc/tested)
     print("Victim prediction accuracy:", vic_acc / tested)
+    print("\tRandom chance accuracy:", rand_vic_acc / tested)
 
 if __name__ == "__main__":
     testing()

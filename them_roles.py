@@ -15,7 +15,6 @@ def most_frequent(List):
 
 def murder_aggregate(text, m_words, entities):
     global main_char
-    print("-----------------------SPOILERS--------------------------")
     suspicious_events = list()
     murderers = list()
     victims = list()
